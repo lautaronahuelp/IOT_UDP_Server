@@ -1,0 +1,7 @@
+#MENSAJES DE PRUEBA:
+#IDEN PRUEBA: <LF>ea4c0011,aa5678,0001,iden<CR>
+#KBYC PRUEBA: <LF>7d040018,aa5678,0001,kbyc,/11234<CR>
+#AKC KBYC PRUEBA: <LF>fb360010,aa5678,0000,ack<CR>(<LF>fc060018,aa5678,0000,kbyc,/11234<CR>)
+#
+PRUEBAS:
+@, IDEN, LUEGO KBYC, LUEGO ACK, LUEGO NO TOMA MAS @ NI IDEN. -> se pausa script hasta presionar tecla -> OK se pausa si haces un clic sobre un escaque de la terminar(CMD:PROPIEDADES>EDICION RAPIDA)
