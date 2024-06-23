@@ -1,0 +1,10 @@
+<header>
+    <h1><a href="/">IOTServer: COMANDOS</a></h1>
+</header>
+
+{% for comando in comandos %}
+    <article>
+        <h2><a href="">{{ comando.nombre }}</a></h2>
+        <p>{{ comando.descripcion|linebreaksbr }}</p>
+    </article>
+{% endfor %}
