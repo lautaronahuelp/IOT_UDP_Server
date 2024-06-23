@@ -135,8 +135,11 @@ while(True):
             if _proc_protocolo(messageDecoded, address):
                 #"xccccllll,aaaaaa,aaaa,ackx"
                 response = (",%s,%s,ack" % (messageDecoded[10:16], messageDecoded[17:21]))
+                print(address)
                 UDPServerSocket.sendto(str.encode(("\n%s%s\r") % (_crc_stamp(response), response)), address)
-    
+        else:
+            UDPServerSocket.sendto(str.encode("tuki"), address)
+            
     if listaComandos.preparaComando():
         nroserie = listaComandos.devuelveNroSerie()
         if listaDispositivos.existeDispositivo(nroserie):

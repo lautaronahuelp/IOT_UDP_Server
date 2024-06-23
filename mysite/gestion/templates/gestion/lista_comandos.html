@@ -4,7 +4,7 @@
 
 {% for comando in comandos %}
     <article>
-        <h2><a href="">{{ comando.nombre }}</a></h2>
+        <h2><a href="{% url 'envia_comando' pk=comando.pk %}"">{{ comando.nombre }}</a></h2>
         <p>{{ comando.descripcion|linebreaksbr }}</p>
     </article>
 {% endfor %}
