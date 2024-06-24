@@ -1,4 +1,4 @@
-#PROTOCOLO: <LF>CHECLLLL,CCCCCC,SSSS,KKKK,V,DATETIMESTAMP<CR>
+#PROTOCOLO: <LF>CHECLLLL,KKKK,SSSS,CCCCCC,V,DATETIMESTAMP<CR>
 #\n17660018,aa1232,0023,kbyc,/11234\r
 #V -> LARGO VARIABLE
 #EN iden V ES LA SECUENCIA DE COMANDOS DEL DISPOSITIVO
@@ -7,43 +7,52 @@
 #
 #
 #MENSAJES DE PRUEBA:
-#IDEN PRUEBA: <LF>ea4c0011,aa5678,0001,iden<CR>
+#solicita idn: <LF>ccccllll,idn,datetimestamp<CR>
+#IDEN PRUEBA: <LF>ea4c0011,aa5678,0001,iden<CR>(new: <LF>ccccllll,idn,0001,aa5678,datetimestamp<CR>)
 #KBYC PRUEBA: <LF>7d040018,aa5678,0001,kbyc,/11234<CR>
 #AKC KBYC PRUEBA: <LF>fb360010,aa5678,0000,ack<CR>(<LF>fc060018,aa5678,0000,kbyc,/11234<CR>)
 #NAK PRUEBA:  <LF>,aa5678,0000,nak<CR> (SE RECIBIO COMANDO PERO NO SE PUEDE ENVIAR AL DISPOSITIVO)
 
-class ProcotoIOT:
+class ProtocoloIOT:
 
     def __init__(self, stringInicial = None):
-        #ingresa stringInicial = "<LF>CHECLLLL,CCCCCC,SSSS,KKKK,V,DATETIMESTAMP<CR>"
+        #ingresa stringInicial = "<LF>CHECLLLL,KKKK,SSSS,CCCCCC,V,DATETIMESTAMP<CR>"
+        self._stringCompleto = ""
         if stringInicial != None:
-            self.stringCompleto = stringInicial
+            self._stringCompleto = stringInicial
         else:
-            self.crcStamp = ""
-            self.nroserie = ""
-            self.secuencia = 0
-            self.token = ""
-            self.valor = ""
-            self.timestamp = ""
+            self._crcStamp = ""
+            self._token = ""
+            self._secuencia = 0
+            self._nroserie = ""
+            self._valor = ""
+            self._timestamp = ""
+            self._valido = False
+    
+    def __str__(self):
+        return ("\n%s,%s\r" % (self._crcStamp, self._token,))
 
-    def esValido():
-        pass
-
-    def _veri_protocolo(self, stringProtocolo = None):#MEJORAR METODO DE COMPROBACION DEL STRING, MAS ESTRICTO
+    def esValido(self, stringProtocolo = None):#MEJORAR METODO DE COMPROBACION DEL STRING, MAS ESTRICTO
         band = True
-        if stringProtocolo != None:
-            messageStriped = stringProtocolo.strip("\n\r")
-            #PROTOCOLO: <LF>CHECLLLL,CCCCCC,SSSS,KKKK,V<CR>
-            #\n17660018,aa1232,0023,kbyc,/11234\r
-            #V -> LARGO VARIABLE
-            for ch in messageStriped:
+        if stringProtocolo == None:
+            stringProtocolo = self._stringCompleto
+        position = [ -1, -1 ]
+        position[0] = stringProtocolo.find('\n')
+        position[1] = stringProtocolo.find('\r')
+        if position[0] != -1 and position[1] != -1 and position[0] < position[1]:
+            stripeado = stringProtocolo[(position[0] + 1):position[1]]
+            for ch in stripeado:
                 orden = ord(ch)
                 if not((orden > 32 and orden < 57) or (orden > 96 and orden < 123)):
                     band = False
             if band:
-                if self.genCRCStamp(messageStriped[8:]) == messageStriped[:8]:
+                if self.genCRCStamp(stripeado[8:]) == stripeado[:8]:
+                    if stringProtocolo == None:
+                        self._valido = True
                     return True
-            return False
+        if stringProtocolo == None:
+            self._valido = False
+        return False
 
     def setCuenta(self, nroserie):
         pass

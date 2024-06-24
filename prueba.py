@@ -1,4 +1,15 @@
 #import datetime
+position = [ -1, -1 ]
+proto = "abs\nCHECLLLL,CCCCCC,SSSS,KKKK,V\rd"
+position[0] = proto.find('\n')
+position[1] = proto.find('\r')
+if position[0] != -1 and position[1] != -1 and position[0] < position[1]:
+    stripeado = proto[(position[0] + 1):position[1]]
+print("PROTO:")
+print(proto)
+print("STRIPEADO:")
+print(stripeado)
+
 # """fruits = []
 
 # fruits.append({'id': 0, 'nombre': "cherry"})
@@ -11,27 +22,27 @@
 #     print(fruit['id'])
 #     print(fruit['nombre'])"""
 
-def orden(dict):
-    return dict['id']
+# def orden(dict):
+#     return dict['id']
 
-fruits = []
+# fruits = []
 
-fruits.sort()
+# fruits.sort()
 
-fruits.append({'id': 1, 'nombre': "cherry"})
-fruits.append({'id': 2, 'nombre': "banana"})
-fruits.append({'id': 3, 'nombre': "apple"})
+# fruits.append({'id': 1, 'nombre': "cherry"})
+# fruits.append({'id': 2, 'nombre': "banana"})
+# fruits.append({'id': 3, 'nombre': "apple"})
 
-#fruits.sort()
-print("---")
-for fruit in fruits:
-    print(fruit)
+# #fruits.sort()
+# print("---")
+# for fruit in fruits:
+#     print(fruit)
 
-fruits.sort(key=orden)
+# fruits.sort(key=orden)
 
-print("---")
-for fruit in fruits:
-    print(fruit)
+# print("---")
+# for fruit in fruits:
+#     print(fruit)
 
 # fruits.append({'id': 1, 'nombre': "anana"})
 

@@ -2,6 +2,7 @@ import socket
 import datetime
 from ListaComandos import ListaComandos
 from ListaDispositivos import ListaDispositivos
+from ProtocoloIOT import ProtocoloIOT
 
 
 listaDispositivos = ListaDispositivos()
@@ -131,7 +132,8 @@ while(True):
                 response = ",aaaaaa,aaaa,iden"
                 UDPServerSocket.sendto(str.encode(("\n%s%s\r") % (_crc_stamp(response), response)), address)
     
-        if _veri_protocolo(messageDecoded):
+        #if _veri_protocolo(messageDecoded):
+        if ProtocoloIOT.esValido(stringProtocolo = messageDecoded):
             if _proc_protocolo(messageDecoded, address):
                 #"xccccllll,aaaaaa,aaaa,ackx"
                 response = (",%s,%s,ack" % (messageDecoded[10:16], messageDecoded[17:21]))
