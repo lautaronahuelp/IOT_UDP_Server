@@ -25,6 +25,10 @@ class ProtocoloNetio:
             self._cid = ""
             self._progString = ""
             self._panelString = ""
+            self._ioread = ""
+            self._owrite = ""
+            self._panelStatus = ""
+            self._csrSecuencia= 0
             self._valido = False
             self._esAck = False
             self._esNack = False
@@ -94,10 +98,18 @@ class ProtocoloNetio:
                             sec = "0x" + campoDes[1]
                             self._secuencia = int(sec)
                         elif(campoDes[0] == "09"):
-                            self._progString = int(campoDes[1])
+                            self._progString = campoDes[1]
                         elif(campoDes[0] == "10"):
-                            self._panelString = int(campoDes[1])
-                        ##FALTAN DEL 11 AL 16
+                            self._panelString = campoDes[1]
+                        elif(campoDes[0] == "11"):
+                            self._ioread = campoDes[1]
+                        elif(campoDes[0] == "12"):
+                            self._owrite = campoDes[1]
+                        ##FALTAN PROBAR 13 Y 14
+                        elif(campoDes[0] == "15"):
+                            self._panelStatus = campoDes[1]
+                        elif(campoDes[0] == "16"):
+                            self._csrSecuencia= int(campoDes[1])
                 elif(sp == self._tokensSinValor[0]):#07
                     diccionarioProtocolo[sp] = True
                     self._esAck = True
