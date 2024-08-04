@@ -37,7 +37,7 @@ def envia_comando(request, pk):
     messageDecoded = bytesAddressPair[0].decode("utf-8")
     if messageDecoded == "ok":
         enviado =  "ENVIADO!"
-    if messageDecoded == "tuki":
+    elif messageDecoded == "tuki":
         enviado = "ACK ERRONEO"
     else:
         enviado = "ack indefinido"

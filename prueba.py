@@ -1,14 +1,14 @@
 #import datetime
-position = [ -1, -1 ]
-proto = "abs\nCHECLLLL,CCCCCC,SSSS,KKKK,V\rd"
-position[0] = proto.find('\n')
-position[1] = proto.find('\r')
-if position[0] != -1 and position[1] != -1 and position[0] < position[1]:
-    stripeado = proto[(position[0] + 1):position[1]]
-print("PROTO:")
-print(proto)
-print("STRIPEADO:")
-print(stripeado)
+# position = [ -1, -1 ]
+# proto = "abs\nCHECLLLL,CCCCCC,SSSS,KKKK,V\rd"
+# position[0] = proto.find('\n')
+# position[1] = proto.find('\r')
+# if position[0] != -1 and position[1] != -1 and position[0] < position[1]:
+#     stripeado = proto[(position[0] + 1):position[1]]
+# print("PROTO:")
+# print(proto)
+# print("STRIPEADO:")
+# print(stripeado)
 
 # """fruits = []
 
@@ -65,4 +65,61 @@ print(stripeado)
 
 #print(objeto)
 #print(objeto['date'])
+
+# import socket
+
+# localIP     = "192.168.100.4"
+# localPort   = 54000
+# bufferSize  = 1024
+
+ 
+
+# msgFromServer       = "Hello UDP Client"
+
+# bytesToSend         = str.encode(msgFromServer)
+
+# # Create a datagram socket
+
+# UDPServerSocket = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
+
+ 
+
+# # Bind to address and ip
+
+# try:
+#     UDPServerSocket.bind((localIP, localPort))
+# except:
+#     print("segundo puerto")
+#     UDPServerSocket.bind((localIP, 54001))
+
+ 
+
+# print("UDP server up and listening")
+
+# UDPServerSocket.close()
+#◙ccccllll,idn,,,,,02072024204156-03♪
+#◙2632001a,idn,,,,,02072024204156-03♪
+#import sys
+#from ProtocoloIOT import ProtocoloIOT
+
+#stringRecibido = input("Ingrese string: ")
+
+#eventoRecibido = ProtocoloIOT(stringRecibido)
+
+#print(eventoRecibido.esValido())
+
+#print(eventoRecibido.genCRCStamp())
+
+#print(eventoRecibido.esValido())
+
+#print(eventoRecibido)
+
+from ProtocoloNETIO import ProtocoloNetio
+
+stringRecibido = input("Ingrese string: ")
+
+recibido = ProtocoloNetio(stringRecibido)
+
+print(recibido.procesarString())
+print(recibido._crcStamp)
 
